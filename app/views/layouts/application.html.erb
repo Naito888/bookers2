@@ -2,29 +2,90 @@
 <html>
   <head>
     <title>Bookers2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"><span>Bookers</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!--ログイン済みならtrue、ログインしていなければfalse-->
+        <% if user_signed_in? %>
+          <!--ログイン中-->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav  ml-auto">
+              <li class="nav-item">
+                <%= link_to user_path(current_user.id),class:"nav-link text-white" do %>
+                  <i class="fas fa-home pr-1"></i>Home
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to users_path,class:"nav-link text-white" do %>
+                   <i class="fas fa-users pr-1"></i>Users
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to books_path,class:"nav-link text-white" do %>
+                  <i class="fas fa-book-open pr-1"></i>Books
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_user_session_path,method: :delete,class:"nav-link text-white" do %>
+                  <i class="fas fa-sign-out-alt pr-1"></i>logout
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <!--ログインしていない-->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <%= link_to root_path,class:"nav-link text-white" do %>
+                  <i class="fas fa-home pr-1"></i>Home
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to home_about_path,class:"nav-link text-white" do %>
+                  <i class="fas fa-link" pr-1></i>About
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to new_user_registration_path,class:"nav-link text-white" do %>
+                  <i class="fas fa-user-plus pr-1"></i>sign up
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to new_user_session_path,class:"nav-link text-white" do %>
+                  <i class="fas fa-sign-in-alt pr-1"></i>login
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </nav>
     </header>
+    
     <%= yield %>
+
+    <footer>
+      <div class='container mt-5'>
+        <div class='row'>
+          <div class='mx-auto'>
+            <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
