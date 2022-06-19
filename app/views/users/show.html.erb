@@ -3,31 +3,8 @@
   <div class="row">
     <div class="col-md-3">
       
-      <!--ユーザー情報-->
-      <h2>User info</h2>
-      <table class="table">
-        <tr>
-          <% if @user.profile_image.attached? %>
-            <%= image_tag user.profile_image, size: '100x100' %>
-          <% else %>
-            <%= image_tag 'no_image.jpg' %>
-          <% end %>
-        </tr>
-        <tr>
-      	  <th>name</th>
-      	  <th><%= @user.name %></th>
-        </tr>
-        <tr>
-      	  <th>introduction</th>
-      	  <th><%= @user.introduction %></th>
-        </tr>
-        
-        </table>
-        <div class='row'>
-          <%= link_to edit_user_path(current_user), class:"btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog"></i>
-          <% end %>
-        </div>
+      <!--ユーザー情報（部分テンプレート）-->
+      <%= render "users/userinfo",user:@user %>
     
     
 
@@ -50,7 +27,7 @@
       
       
     </div>
-    
+    <!--自分の投稿一覧-->
     <div class="col-md-8 offset-md-1">
       <h2>Books</h2>
       <table class="table table-hover table-inverse">
@@ -62,7 +39,31 @@
             <th colspan="3"></th>
           </tr>
         </thead>
-        
+        <!--実データ-->
+        <% @books.each do |book| %>
+          <tbody>
+            <tr>
+              <td>
+                <!--ユーザー詳細にリンク-->
+                <%= link_to user_path(@user.id) do %>
+                  <%= image_tag @user.profile_image, size: '100x100', fallback: 'no_image.jpg' if @user.profile_image.attached? %> 
+                <% end %>
+              </td>
+
+              <td>
+                <!--タイトルブック詳細にリンク-->
+                <%= link_to book_path(book.id) do %>
+                  <%= book.title %>
+                <% end %>
+              </td>
+
+              <td>
+                <!--詳細-->
+                <%= book.body %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
         
         
       </table>
