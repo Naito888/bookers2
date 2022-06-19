@@ -3,11 +3,11 @@
   <div class="row">
     <div class="col-md-3">
       
+      <!--エラーメッセージ-->
+      <%= render "books/error_message" %>
+      
       <!--ユーザー情報（部分テンプレート）-->
       <%= render "users/userinfo",user:@user %>
-    
-    
-
 
       <!--投稿フォーム-->
       <h2 class="mt-3">New book</h2>
