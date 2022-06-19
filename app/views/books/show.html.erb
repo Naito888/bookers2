@@ -43,17 +43,19 @@
                 <td>
                   <%= link_to @book.title %>
                 </td>
-                <td><%= @book.body %></td>
+                <td>
+                  <%= @book.body %>
+                </td>
                 <!--編集(edit)-->
                 <td>
                   <% if @book.user == current_user %>
-                    <%= link_to "Edit",edit_book_path(@book),class:"btn btn-success" %>
+                    <%= link_to "Edit",edit_book_path(@book.user_id),class:"btn btn-success" %>
                   <% end %>
                 </td>
                 <!--削除(destroy)-->
                 <td>
                   <% if @book.user == current_user %>
-                    <%= link_to "Destroy",book_path(@book),method: :delete,class:"btn btn-danger", data: {confirm: "本当に消しますか？"} %>
+                    <%= link_to "Destroy",book_path(@book.user_id),method: :delete,class:"btn btn-danger", data: {confirm: "本当に消しますか？"} %>
                   <% end %>
                 </td>
               </tr>

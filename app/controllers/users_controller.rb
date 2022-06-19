@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @books = @user.book
+    @books = @user.books
     @book = Book.new
   end
     # @userに紐付いたbooksのみを表示
@@ -17,9 +17,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    redirect_to user_path(current_user.id)
-    if @user.id != current_user.id
-    end
+    redirect_to user_path(current_user.id) if @user.id != current_user.id
   end
   
   def update

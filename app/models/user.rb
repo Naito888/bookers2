@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  has_many :book, dependent: :destroy
+  has_many :books, dependent: :destroy
   has_one_attached :profile_image
   
   # name：一意性を持たせ、かつ2～20文字の範囲で設定してください。
